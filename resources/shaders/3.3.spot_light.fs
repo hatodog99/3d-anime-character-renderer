@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 out vec4 FragColor;
 
 struct Material {
@@ -34,7 +34,6 @@ uniform Light light;
 void main()
 {
     vec3 lightDir = normalize(light.position - FragPos);
-    
     
     // ambient
     vec3 ambient = light.ambient * material.diffuse;
