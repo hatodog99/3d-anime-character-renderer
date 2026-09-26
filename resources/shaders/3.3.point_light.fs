@@ -2,7 +2,6 @@
 out vec4 FragColor;
 
 struct Material {
-    vec3 diffuse;
     vec3 specular;    
     float shininess;
 }; 
@@ -30,15 +29,17 @@ uniform Light light;
 
 void main()
 {
+    vec3 texColor = texture(texture_diffuse1, TexCoords).rgb;
+    
     // ambient
-    vec3 ambient = light.ambient * material.diffuse;
+    vec3 ambient = light.ambient * texColor;
   	
     // diffuse 
     vec3 norm = normalize(Normal);
     norm = gl_FrontFacing ? norm : -norm;
     vec3 lightDir = normalize(light.position - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * diff * material.diffuse;
+    vec3 diffuse = light.diffuse * diff * texColor;
     
     // specular
     vec3 viewDir = normalize(viewPos - FragPos);
@@ -55,5 +56,5 @@ void main()
     specular *= attenuation;   
         
     vec3 result = ambient + diffuse + specular;
-    FragColor = texture(texture_diffuse1, TexCoords) * vec4(result, 1.0);
+    FragColor =  vec4(result, 1.0);
 } 
