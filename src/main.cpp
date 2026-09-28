@@ -27,7 +27,7 @@ enum Input {
     R
 };
 
-bool wasPressed[10] = { false };
+bool wasPressed[13] = { false };
 
 void updatePerformanceCounter(GLFWwindow* window);
 void frame_buffer_size_callback(GLFWwindow* window, int width, int height);
