@@ -47,7 +47,7 @@ struct SpotLight {
     vec3 color;
 };
 
-#define NR_POINT_LIGHTS 4
+#define NR_POINT_LIGHTS 1
 
 in vec3 FragPos;
 in vec3 Normal;
@@ -62,9 +62,14 @@ uniform sampler2D texture_diffuse1;
 
 // toon shading attributes
 uniform bool gCellShadingEnabled = true;
-
 const int toon_color_levels = 2;
-const float toon_scale_factor = 1.0f / toon_color_levels;
+const float toon_scale_factor = 1.0 / toon_color_levels;
+
+// rim lighting
+uniform bool  gRimLightingEnabled = true;
+uniform vec3  rimColor     = vec3(1.0);
+uniform float rimPower     = 3.0;
+uniform float rimIntensity = 0.8;
 
 float computeToonIntensity(float dotProduct);
 void CalcDirLight(DirLight light, vec3 normal, vec3 viewDir,
@@ -89,7 +94,8 @@ void main()
     totalAmbient += a;
     totalDiffuse += d;
     totalSpecular += s;
-     
+    
+    /*
     for(int i = 0; i < NR_POINT_LIGHTS; i++)
     {
         CalcPointLight(pointLights[i], norm, FragPos, viewDir, texColor, a, d, s);
@@ -97,8 +103,9 @@ void main()
         totalDiffuse += d;
         totalSpecular += s;
     }
+    */
 
-    // result += CalcSpotLight(spotLight, norm, FragPos, viewDir, texColor);    
+    // result += CalcSpotLight(spotLight, norm, FragPos, viewDir, texColor);
 
     if (gCellShadingEnabled)
     {
@@ -107,7 +114,16 @@ void main()
         totalSpecular = vec3(0.0); // stylized specular comes later; flat off for now
     }
     
-    vec3 result = (totalAmbient + totalDiffuse + totalSpecular) * texColor;
+    vec3 rim = vec3(0.0);
+    if (gRimLightingEnabled)
+    {
+        float rimFactor = 1.0 - max(dot(norm, viewDir), 0.0);
+        rimFactor = pow(rimFactor, max(rimPower, 0.001));
+        // rimFactor = smoothstep(0.5, 0.55, rimFactor);   // hard toon edge; remove for a soft glow
+        rim = rimColor * rimFactor * rimIntensity;
+    }
+
+    vec3 result = (totalAmbient + totalDiffuse + totalSpecular + rim) * texColor;
     result = clamp(result, 0.0, 1.0);
     FragColor = vec4(result, 1.0);
 }
