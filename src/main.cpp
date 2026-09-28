@@ -22,12 +22,13 @@ enum Input {
     UP_ARROW,
     DOWN_ARROW,
     F11,
+    M,
     L,
     C,
     R
 };
 
-bool wasPressed[13] = { false };
+bool wasPressed[14] = { false };
 
 void updatePerformanceCounter(GLFWwindow* window);
 void frame_buffer_size_callback(GLFWwindow* window, int width, int height);
@@ -69,6 +70,7 @@ float mixValue = 0.3f;
 
 // light
 bool lightingEnabled = true;
+bool lightMovementEnabled = false;
 
 // anime stuff
 bool cellShadingEnabled = true;
@@ -84,6 +86,9 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -235,12 +240,16 @@ int main()
         lightingShader.setFloat("material.shininess", 8.0f);
 
         // directional light
-        //float speed = 0.6f;
-        //lightDir.x = sin(glfwGetTime() * speed);
+        if (lightMovementEnabled)
+        {
+            float speed = 0.6f;
+            float amplitude = 1.4f;
+            lightDir.x = sin(glfwGetTime() * speed) * amplitude;
+        }
 
         lightingShader.setVec3("dirLight.direction", lightDir);
         lightingShader.setVec3("dirLight.ambient", glm::vec3(0.3f));
-        lightingShader.setVec3("dirLight.diffuse", glm::vec3(0.75f));
+        lightingShader.setVec3("dirLight.diffuse", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.specular", glm::vec3(0.5f));
         lightingShader.setVec3("dirLight.color", lightColor);
         // point light 1
@@ -480,6 +489,13 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[F11] = f11Down;
 
+    bool mDown = glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS;
+    if (mDown && !wasPressed[M]) {
+        printInput(M);
+        lightMovementEnabled = !lightMovementEnabled;
+    }
+    wasPressed[M] = mDown;
+
     bool lDown = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
     if (lDown && !wasPressed[L]) {
         printInput(L);
@@ -528,6 +544,8 @@ void printInput(Input input)
         currentInput = "ARROW_DOWN";
     if (input == F11) 
         currentInput = "F11";
+    if (input == M) 
+        currentInput = "M";
     if (input == L) 
         currentInput = "L";
     if (input == C)

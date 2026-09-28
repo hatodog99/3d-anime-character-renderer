@@ -65,8 +65,9 @@ uniform bool gLightingEnabled;
 
 // toon shading attributes
 uniform bool gCellShadingEnabled;
-const int toon_color_levels = 2;
+const float toon_color_levels = 3.0;
 const float toon_scale_factor = 1.0 / toon_color_levels;
+uniform float toon_bias = 0.26;
 
 // rim lighting attributes
 uniform bool gRimLightingEnabled;
@@ -114,9 +115,13 @@ void main()
 
         if (gCellShadingEnabled)
         {
-            totalDiffuse = clamp(totalDiffuse, 0.0, 1.0);
-            totalDiffuse = ceil(totalDiffuse * toon_color_levels) * toon_scale_factor;
-            totalSpecular = vec3(0.0); // stylized specular comes later; flat off for now
+            float toon_intensity = dot(totalDiffuse, vec3(0.299, 0.587, 0.114));
+            toon_intensity = clamp(toon_intensity, 0.0, 1.0);
+
+            float toon = ceil(pow(toon_intensity, toon_bias) * float(toon_color_levels)) * toon_scale_factor;
+
+            totalDiffuse = (toon_intensity > 0.0) ? totalDiffuse * (toon / toon_intensity) : vec3(0.0);
+            totalSpecular = vec3(0.0);
         }
     
         vec3 rim = vec3(0.0);
