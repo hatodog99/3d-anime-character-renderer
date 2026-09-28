@@ -81,22 +81,13 @@
     <None Include="resources\shaders\3.3.light_cube.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="resources\shaders\3.3.directional_light.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
     <None Include="resources\shaders\3.3.light.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="resources\shaders\3.3.no_light.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="resources\shaders\3.3.point_light.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\3.3.spot_light.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\3.3.multiple_lights.fs">
+    <None Include="resources\shaders\3.3.light.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

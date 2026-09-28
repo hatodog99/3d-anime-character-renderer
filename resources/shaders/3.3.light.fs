@@ -69,7 +69,7 @@ const float toon_scale_factor = 1.0 / toon_color_levels;
 uniform bool  gRimLightingEnabled;
 uniform vec3  rimColor     = vec3(1.0);
 uniform float rimPower     = 3.0;
-uniform float rimIntensity = 0.8;
+uniform float rimIntensity = 0.5;
 
 float computeToonIntensity(float dotProduct);
 void CalcDirLight(DirLight light, vec3 normal, vec3 viewDir,

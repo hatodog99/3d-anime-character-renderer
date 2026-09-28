@@ -71,7 +71,7 @@ bool cellShadingEnabled = true;
 bool rimLightingEnabled = true;
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
-glm::vec3 lightDir(-0.2f, -0.2f, -1.8f);
+glm::vec3 lightDir(-0.7f, -0.2f, -1.8f);
 glm::vec3 lightColor(glm::vec3(1.0f));
 
 int main()
@@ -108,11 +108,7 @@ int main()
     glfwSwapInterval(0);    // disable vsync
 
     //Shader noLight("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
-    //Shader directionalLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.directional_light.fs");
-    //Shader pointLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.point_light.fs");
-    //Shader spotLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.spot_light.fs");
-    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.multiple_lights.fs");
-
+    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.light.fs");
     Shader lightCubeShader("resources/shaders/3.3.light_cube.vs", "resources/shaders/3.3.light_cube.fs");
 
     Model twoB("resources/objects/2b-in-kimono/28.glb");
@@ -234,8 +230,8 @@ int main()
         lightingShader.setFloat("material.shininess", 8.0f);
 
         // directional light
-        float speed = 0.6f;
-        lightDir.x = sin(glfwGetTime() * speed);
+        //float speed = 0.6f;
+        //lightDir.x = sin(glfwGetTime() * speed);
 
         lightingShader.setVec3("dirLight.direction", lightDir);
         lightingShader.setVec3("dirLight.ambient", glm::vec3(0.3f));
@@ -292,9 +288,9 @@ int main()
         // render model
         model = glm::mat4(1.0f);
         model = glm::translate(model, modelPositions[0]);
-        model = glm::scale(model, glm::vec3(2.0f));
+        model = glm::scale(model, glm::vec3(0.007f));
         lightingShader.setMat4("model", model);
-        twoB.Draw(lightingShader);
+        nijika.Draw(lightingShader);
         
         //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
