@@ -61,12 +61,12 @@ uniform Material material;
 uniform sampler2D texture_diffuse1;
 
 // toon shading attributes
-uniform bool gCellShadingEnabled = true;
+uniform bool gCellShadingEnabled;
 const int toon_color_levels = 2;
 const float toon_scale_factor = 1.0 / toon_color_levels;
 
 // rim lighting
-uniform bool  gRimLightingEnabled = true;
+uniform bool  gRimLightingEnabled;
 uniform vec3  rimColor     = vec3(1.0);
 uniform float rimPower     = 3.0;
 uniform float rimIntensity = 0.8;

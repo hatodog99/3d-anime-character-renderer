@@ -21,7 +21,9 @@ enum Input {
     LEFT_SHIFT,
     UP_ARROW,
     DOWN_ARROW,
-    F11
+    F11,
+    C,
+    R
 };
 
 bool wasPressed[10] = { false };
@@ -63,6 +65,10 @@ float cooldownTimer = 0.0f;
 float mixCooldownTimer = 0.0f;
 
 float mixValue = 0.3f;
+
+// anime stuff
+bool cellShadingEnabled = true;
+bool rimLightingEnabled = true;
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
 glm::vec3 lightDir(-0.2f, -0.2f, -1.8f);
@@ -222,6 +228,8 @@ int main()
         // render models
         lightingShader.use();
         lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setBool("gCellShadingEnabled", cellShadingEnabled);
+        lightingShader.setBool("gRimLightingEnabled", rimLightingEnabled);
         lightingShader.setVec3("material.specular", glm::vec3(0.2f));
         lightingShader.setFloat("material.shininess", 8.0f);
 
@@ -284,9 +292,9 @@ int main()
         // render model
         model = glm::mat4(1.0f);
         model = glm::translate(model, modelPositions[0]);
-        model = glm::scale(model, glm::vec3(0.007f));
+        model = glm::scale(model, glm::vec3(2.0f));
         lightingShader.setMat4("model", model);
-        nijika.Draw(lightingShader);
+        twoB.Draw(lightingShader);
         
         //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -470,6 +478,22 @@ void processInput(GLFWwindow* window)
         toggleFullscreen(window);
     }
     wasPressed[F11] = f11Down;
+
+    // toggle cel shading (C)
+    bool cDown = glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS;
+    if (cDown && !wasPressed[C]) {
+        printInput(C);
+        cellShadingEnabled = !cellShadingEnabled;
+    }
+    wasPressed[C] = cDown;
+
+    // toggle rim lighting (R)
+    bool rDown = glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS;
+    if (rDown && !wasPressed[R]) {
+        printInput(R);
+        rimLightingEnabled = !rimLightingEnabled;
+    }
+    wasPressed[R] = rDown;
 }
 
 void printInput(Input input)
@@ -496,6 +520,10 @@ void printInput(Input input)
         currentInput = "ARROW_DOWN";
     if (input == F11) 
         currentInput = "F11";
+    if (input == C)
+        currentInput = "C";
+    if (input == R)
+        currentInput = "R";
 
     std::cout << "\rinput: " << currentInput << "          " << std::flush;
 }
