@@ -60,15 +60,18 @@ uniform SpotLight spotLight;
 uniform Material material;
 uniform sampler2D texture_diffuse1;
 
+// lighting
+uniform bool gLightingEnabled;
+
 // toon shading attributes
 uniform bool gCellShadingEnabled;
 const int toon_color_levels = 2;
 const float toon_scale_factor = 1.0 / toon_color_levels;
 
-// rim lighting
-uniform bool  gRimLightingEnabled;
-uniform vec3  rimColor     = vec3(1.0);
-uniform float rimPower     = 3.0;
+// rim lighting attributes
+uniform bool gRimLightingEnabled;
+uniform vec3 rimColor = vec3(1.0);
+uniform float rimPower = 3.0;
 uniform float rimIntensity = 0.5;
 
 float computeToonIntensity(float dotProduct);
@@ -80,52 +83,60 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, vec
 
 void main()
 {    
-    vec3 texColor = texture(texture_diffuse1, TexCoords).rgb;
-    vec3 norm = normalize(Normal);
-    vec3 viewDir = normalize(viewPos - FragPos);
-    
-    vec3 totalAmbient = vec3(0.0);
-    vec3 totalDiffuse = vec3(0.0);
-    vec3 totalSpecular = vec3(0.0);
-
-    vec3 a, d, s;
-
-    CalcDirLight(dirLight, norm, viewDir, a, d, s);
-    totalAmbient += a;
-    totalDiffuse += d;
-    totalSpecular += s;
-    
-    /*
-    for(int i = 0; i < NR_POINT_LIGHTS; i++)
+    if (gLightingEnabled)
     {
-        CalcPointLight(pointLights[i], norm, FragPos, viewDir, texColor, a, d, s);
+        vec3 texColor = texture(texture_diffuse1, TexCoords).rgb;
+        vec3 norm = normalize(Normal);
+        vec3 viewDir = normalize(viewPos - FragPos);
+    
+        vec3 totalAmbient = vec3(0.0);
+        vec3 totalDiffuse = vec3(0.0);
+        vec3 totalSpecular = vec3(0.0);
+
+        vec3 a, d, s;
+
+        CalcDirLight(dirLight, norm, viewDir, a, d, s);
         totalAmbient += a;
         totalDiffuse += d;
         totalSpecular += s;
-    }
-    */
-
-    // result += CalcSpotLight(spotLight, norm, FragPos, viewDir, texColor);
-
-    if (gCellShadingEnabled)
-    {
-        totalDiffuse = clamp(totalDiffuse, 0.0, 1.0);
-        totalDiffuse = ceil(totalDiffuse * toon_color_levels) * toon_scale_factor;
-        totalSpecular = vec3(0.0); // stylized specular comes later; flat off for now
-    }
     
-    vec3 rim = vec3(0.0);
-    if (gRimLightingEnabled)
-    {
-        float rimFactor = 1.0 - max(dot(norm, viewDir), 0.0);
-        rimFactor = pow(rimFactor, max(rimPower, 0.001));
-        // rimFactor = smoothstep(0.5, 0.55, rimFactor);   // hard toon edge; remove for a soft glow
-        rim = rimColor * rimFactor * rimIntensity;
-    }
+        /*
+        for(int i = 0; i < NR_POINT_LIGHTS; i++)
+        {
+            CalcPointLight(pointLights[i], norm, FragPos, viewDir, texColor, a, d, s);
+            totalAmbient += a;
+            totalDiffuse += d;
+            totalSpecular += s;
+        }
+        */
 
-    vec3 result = (totalAmbient + totalDiffuse + totalSpecular + rim) * texColor;
-    result = clamp(result, 0.0, 1.0);
-    FragColor = vec4(result, 1.0);
+        // result += CalcSpotLight(spotLight, norm, FragPos, viewDir, texColor);
+
+        if (gCellShadingEnabled)
+        {
+            totalDiffuse = clamp(totalDiffuse, 0.0, 1.0);
+            totalDiffuse = ceil(totalDiffuse * toon_color_levels) * toon_scale_factor;
+            totalSpecular = vec3(0.0); // stylized specular comes later; flat off for now
+        }
+    
+        vec3 rim = vec3(0.0);
+        if (gRimLightingEnabled)
+        {
+            float rimFactor = 1.0 - max(dot(norm, viewDir), 0.0);
+            rimFactor = pow(rimFactor, max(rimPower, 0.001));
+            // rimFactor = smoothstep(0.5, 0.55, rimFactor);   // hard toon edge; remove for a soft glow
+            rim = rimColor * rimFactor * rimIntensity;
+        }
+
+        vec3 result = (totalAmbient + totalDiffuse + totalSpecular + rim) * texColor;
+        result = clamp(result, 0.0, 1.0);
+        FragColor = vec4(result, 1.0);
+    }
+    else
+    {
+        vec3 texColor = texture(texture_diffuse1, TexCoords).rgb;
+        FragColor = vec4(texColor, 1.0);
+    }
 }
 
 void CalcDirLight(DirLight light, vec3 normal, vec3 viewDir,

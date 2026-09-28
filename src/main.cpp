@@ -22,6 +22,7 @@ enum Input {
     UP_ARROW,
     DOWN_ARROW,
     F11,
+    L,
     C,
     R
 };
@@ -65,6 +66,9 @@ float cooldownTimer = 0.0f;
 float mixCooldownTimer = 0.0f;
 
 float mixValue = 0.3f;
+
+// light
+bool lightingEnabled = true;
 
 // anime stuff
 bool cellShadingEnabled = true;
@@ -224,6 +228,7 @@ int main()
         // render models
         lightingShader.use();
         lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setBool("gLightingEnabled", lightingEnabled);
         lightingShader.setBool("gCellShadingEnabled", cellShadingEnabled);
         lightingShader.setBool("gRimLightingEnabled", rimLightingEnabled);
         lightingShader.setVec3("material.specular", glm::vec3(0.2f));
@@ -475,6 +480,13 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[F11] = f11Down;
 
+    bool lDown = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
+    if (lDown && !wasPressed[L]) {
+        printInput(L);
+        lightingEnabled = !lightingEnabled;
+    }
+    wasPressed[L] = lDown;
+
     // toggle cel shading (C)
     bool cDown = glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS;
     if (cDown && !wasPressed[C]) {
@@ -516,6 +528,8 @@ void printInput(Input input)
         currentInput = "ARROW_DOWN";
     if (input == F11) 
         currentInput = "F11";
+    if (input == L) 
+        currentInput = "L";
     if (input == C)
         currentInput = "C";
     if (input == R)
