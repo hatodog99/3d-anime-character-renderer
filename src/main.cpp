@@ -69,7 +69,7 @@ float mixCooldownTimer = 0.0f;
 float mixValue = 0.3f;
 
 // light
-bool lightingEnabled = true;
+bool lightingEnabled = false;
 bool lightMovementEnabled = false;
 
 // anime stuff
@@ -78,7 +78,8 @@ bool rimLightingEnabled = true;
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
 glm::vec3 lightDir(-0.7f, -0.2f, -1.8f);
-glm::vec3 lightColor(glm::vec3(1.0f));
+glm::vec3 sunLightColor(glm::vec3(1.0f, 0.9882352941176471f, 0.9215686274509804f)); // #FFFCEB
+glm::vec3 ambientLightColor(glm::vec3(0.7058823529411765f, 0.8431372549019608f, 1.0f)); // #B4D7FF
 
 int main()
 {
@@ -114,13 +115,14 @@ int main()
     }
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     glfwSwapInterval(0);    // disable vsync
 
-    //Shader noLight("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
+    //Shader noLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
     Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.light.fs");
     Shader lightCubeShader("resources/shaders/3.3.light_cube.vs", "resources/shaders/3.3.light_cube.fs");
 
-    Model twoB("resources/objects/2b-in-kimono/28.glb");
+    //Model twoB("resources/objects/2b-in-kimono/28.glb");
     Model nijika("resources/objects/ijichi-nijika/1.fbx");
     //Model bocchi("resources/objects/goto-hitori/1.fbx");
     //Model kita("resources/objects/kita-ikuyo/1.fbx");
@@ -172,7 +174,7 @@ int main()
     };
 
     glm::vec3 modelPositions[] = {
-        glm::vec3(0.0f,  0.0f,  0.0f),
+        glm::vec3(0.0f,  -0.8f,  0.0f),
         glm::vec3(2.0f,  5.0f, -15.0f),
         glm::vec3(-1.5f, -2.2f, -2.5f),
         glm::vec3(-3.8f, -2.0f, -12.3f),
@@ -243,7 +245,7 @@ int main()
         if (lightMovementEnabled)
         {
             float speed = 0.6f;
-            float amplitude = 1.4f;
+            float amplitude = 0.8f;
             lightDir.x = sin(glfwGetTime() * speed) * amplitude;
         }
 
@@ -251,16 +253,16 @@ int main()
         lightingShader.setVec3("dirLight.ambient", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.diffuse", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.specular", glm::vec3(0.5f));
-        lightingShader.setVec3("dirLight.color", lightColor);
+        lightingShader.setVec3("dirLight.color", sunLightColor);
         // point light 1
         //lightingShader.setVec3("pointLights[0].position", lightPos);
         //lightingShader.setVec3("pointLights[0].ambient", glm::vec3(0.4f));
-        //lightingShader.setVec3("pointLights[0].diffuse", glm::vec3(1.0f));
+        //lightingShader.setVec3("pointLights[0].diffuse", glm::vec3(0.8f));
         //lightingShader.setVec3("pointLights[0].specular", glm::vec3(1.0f));
         //lightingShader.setFloat("pointLights[0].constant", 1.0f);
         //lightingShader.setFloat("pointLights[0].linear", 0.09f);
         //lightingShader.setFloat("pointLights[0].quadratic", 0.032f);
-        //lightingShader.setVec3("pointLights[0].color", lightColor);
+        //lightingShader.setVec3("pointLights[0].color", sunLightColor);
         // point light 2
         //lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
         //lightingShader.setVec3("pointLights[1].ambient", glm::vec3(0.4f));
@@ -310,7 +312,7 @@ int main()
 
         // render light cubes
         //lightCubeShader.use();
-        //lightCubeShader.setVec3("lightColor", lightColor);
+        //lightCubeShader.setVec3("lightColor", sunLightColor);
         //lightCubeShader.setMat4("projection", projection);
         //lightCubeShader.setMat4("view", view);
 
@@ -346,8 +348,7 @@ void updatePerformanceCounter(GLFWwindow* window) {
         float fps = float(frameCount) / (currentTime - lastTime);
         float msPerFrame = (currentTime - lastTime) * 1000.0f / float(frameCount);
 
-        std::string title = "main | fps: " + std::to_string(int(fps)) +
-            " | frame time: " + std::to_string(msPerFrame) + " /ms";
+        std::string title = "main | fps: " + std::to_string(int(fps)) + " | time: " + std::to_string(msPerFrame) + " /ms";
 
         glfwSetWindowTitle(window, title.c_str());
 
@@ -482,6 +483,7 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[DOWN_ARROW] = downDown;
 
+    // fullscreen
     bool f11Down = glfwGetKey(window, GLFW_KEY_F11) == GLFW_PRESS;
     if (f11Down && !wasPressed[F11]) {
         printInput(F11);
@@ -489,6 +491,7 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[F11] = f11Down;
 
+    // move light
     bool mDown = glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS;
     if (mDown && !wasPressed[M]) {
         printInput(M);
@@ -496,6 +499,7 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[M] = mDown;
 
+    // toggle lighting
     bool lDown = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
     if (lDown && !wasPressed[L]) {
         printInput(L);
@@ -503,7 +507,7 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[L] = lDown;
 
-    // toggle cel shading (C)
+    // toggle cel shading
     bool cDown = glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS;
     if (cDown && !wasPressed[C]) {
         printInput(C);
@@ -511,7 +515,7 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[C] = cDown;
 
-    // toggle rim lighting (R)
+    // toggle rim lighting
     bool rDown = glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS;
     if (rDown && !wasPressed[R]) {
         printInput(R);

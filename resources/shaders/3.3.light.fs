@@ -96,11 +96,13 @@ void main()
 
         vec3 a, d, s;
 
+        // dir light
         CalcDirLight(dirLight, norm, viewDir, a, d, s);
         totalAmbient += a;
         totalDiffuse += d;
         totalSpecular += s;
     
+        // point lights
         /*
         for(int i = 0; i < NR_POINT_LIGHTS; i++)
         {
@@ -111,6 +113,7 @@ void main()
         }
         */
 
+        // spot light
         // result += CalcSpotLight(spotLight, norm, FragPos, viewDir, texColor);
 
         if (gCellShadingEnabled)
