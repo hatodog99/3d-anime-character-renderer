@@ -119,7 +119,7 @@ int main()
     glfwSwapInterval(0);    // disable vsync
 
     //Shader noLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
-    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.light.fs");
+    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.depth_test.fs");
     Shader lightCubeShader("resources/shaders/3.3.light_cube.vs", "resources/shaders/3.3.light_cube.fs");
 
     //Model twoB("resources/objects/2b-in-kimono/28.glb");

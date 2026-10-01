@@ -186,6 +186,8 @@
     <Image Include="..\..\..\Downloads\wally_pokemon.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\shaders\3.3.depth_test.fs" />
+    <None Include="resources\shaders\3.3.linear_depth_test.fs" />
     <None Include="resources\shaders\3.3.light_cube.fs" />
     <None Include="resources\shaders\3.3.light_cube.vs" />
     <None Include="resources\shaders\3.3.light.fs" />
