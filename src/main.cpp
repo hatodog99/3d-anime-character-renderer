@@ -22,10 +22,11 @@ enum Input {
     UP_ARROW,
     DOWN_ARROW,
     F11,
-    M,
     L,
+    M,
     C,
-    R
+    R,
+    O
 };
 
 bool wasPressed[14] = { false };
@@ -69,17 +70,25 @@ float mixCooldownTimer = 0.0f;
 float mixValue = 0.3f;
 
 // light
-bool lightingEnabled = false;
+bool lightingEnabled = true;
 bool lightMovementEnabled = false;
 
 // anime stuff
 bool cellShadingEnabled = true;
 bool rimLightingEnabled = true;
+bool outlineEnabled = true;
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
 glm::vec3 lightDir(-0.7f, -0.2f, -1.8f);
-glm::vec3 sunLightColor(glm::vec3(1.0f, 0.9882352941176471f, 0.9215686274509804f)); // #FFFCEB
-glm::vec3 ambientLightColor(glm::vec3(0.7058823529411765f, 0.8431372549019608f, 1.0f)); // #B4D7FF
+glm::vec3 whiteLightColor(glm::vec3(1.0f));                     // #FFFFFF
+glm::vec3 sunLightColor(glm::vec3(1.0f, 0.988f, 0.924f));       // #FFFCEB
+glm::vec3 ambientLightColor(glm::vec3(0.706f, 0.843f, 1.0f));   // #B4D7FF
+
+glm::vec3 blackOutlineColor(glm::vec3(0.0f));                       // #000000
+glm::vec3 whiteOutlineColor(glm::vec3(1.0f));                       // #FFFFFF
+glm::vec3 darkBrownOutlineColor(glm::vec3(0.176f, 0.118f, 0.098f)); // #2D1E19
+glm::vec3 darkRedOutlineColor(glm::vec3(0.235f, 0.255f, 0.314f));   // #3C4150
+glm::vec3 darkBlueOutlineColor(glm::vec3(0.314f, 0.137f, 0.137f));  // #502323
 
 int main()
 {
@@ -115,12 +124,16 @@ int main()
     }
 
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
+    //glDepthFunc(GL_LESS);
+    //glDepthFunc(GL_ALWAYS);
+    glEnable(GL_STENCIL_TEST);
     glfwSwapInterval(0);    // disable vsync
 
     //Shader noLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
-    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.depth_test.fs");
+    Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.light.fs");
     Shader lightCubeShader("resources/shaders/3.3.light_cube.vs", "resources/shaders/3.3.light_cube.fs");
+
+    Shader outlineShader("resources/shaders/3.3.outline.vs", "resources/shaders/3.3.outline.fs");
 
     //Model twoB("resources/objects/2b-in-kimono/28.glb");
     Model nijika("resources/objects/ijichi-nijika/1.fbx");
@@ -226,18 +239,39 @@ int main()
         processInput(window);
 
         // background
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glClearColor(0.05f, 0.05f, 0.05f, 1.0f);    // dark
+        glClearColor(0.95f, 0.95f, 0.95f, 1.0f);    // light
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // render light cubes
+        //lightCubeShader.use();
+        //lightCubeShader.setVec3("lightColor", sunLightColor);
+        //lightCubeShader.setMat4("projection", projection);
+        //lightCubeShader.setMat4("view", view);
+
+        //glBindVertexArray(lightCubeVAO);
+        //model = glm::mat4(1.0f);
+        //model = glm::translate(model, lightPos);
+        //model = glm::scale(model, glm::vec3(0.2f));
+        //lightCubeShader.setMat4("model", model);
+        //glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // see polygons
         // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         // render models
+        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        glStencilFunc(GL_ALWAYS, 1, 0xFF); 
+        glStencilMask(0xFF);    // enable stencil buffer writing
         lightingShader.use();
         lightingShader.setVec3("viewPos", camera.Position);
+
         lightingShader.setBool("gLightingEnabled", lightingEnabled);
         lightingShader.setBool("gCellShadingEnabled", cellShadingEnabled);
         lightingShader.setBool("gRimLightingEnabled", rimLightingEnabled);
+
         lightingShader.setVec3("material.specular", glm::vec3(0.2f));
         lightingShader.setFloat("material.shininess", 8.0f);
 
@@ -253,7 +287,7 @@ int main()
         lightingShader.setVec3("dirLight.ambient", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.diffuse", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.specular", glm::vec3(0.5f));
-        lightingShader.setVec3("dirLight.color", sunLightColor);
+        lightingShader.setVec3("dirLight.color", whiteLightColor);
         // point light 1
         //lightingShader.setVec3("pointLights[0].position", lightPos);
         //lightingShader.setVec3("pointLights[0].ambient", glm::vec3(0.4f));
@@ -297,31 +331,31 @@ int main()
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
 
-        // world transformation
-        glm::mat4 model = glm::mat4(1.0f);
-        lightingShader.setMat4("model", model);
-        
         // render model
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, modelPositions[0]);
-        model = glm::scale(model, glm::vec3(0.007f));
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
+        float modelScale = 0.007f;
+        model = glm::scale(model, glm::vec3(modelScale));
         lightingShader.setMat4("model", model);
         nijika.Draw(lightingShader);
-        
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        // render light cubes
-        //lightCubeShader.use();
-        //lightCubeShader.setVec3("lightColor", sunLightColor);
-        //lightCubeShader.setMat4("projection", projection);
-        //lightCubeShader.setMat4("view", view);
-
-        //glBindVertexArray(lightCubeVAO);
-        //model = glm::mat4(1.0f);
-        //model = glm::translate(model, lightPos);
-        //model = glm::scale(model, glm::vec3(0.2f));
-        //lightCubeShader.setMat4("model", model);
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
+        // render outline
+        if (outlineEnabled)
+        {
+            glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+            glStencilMask(0x00);    // disable stencil buffer writing
+            glDisable(GL_DEPTH_TEST);
+            outlineShader.use();
+            outlineShader.setVec3("outlineColor", darkBrownOutlineColor);
+            outlineShader.setFloat("outlineWidth", 0.004f);
+            outlineShader.setMat4("projection", projection);
+            outlineShader.setMat4("view", view);
+            outlineShader.setMat4("model", model);
+            nijika.Draw(outlineShader);
+            glStencilMask(0xFF);
+            glStencilFunc(GL_ALWAYS, 0, 0xFF);
+            glEnable(GL_DEPTH_TEST);
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -491,14 +525,6 @@ void processInput(GLFWwindow* window)
     }
     wasPressed[F11] = f11Down;
 
-    // move light
-    bool mDown = glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS;
-    if (mDown && !wasPressed[M]) {
-        printInput(M);
-        lightMovementEnabled = !lightMovementEnabled;
-    }
-    wasPressed[M] = mDown;
-
     // toggle lighting
     bool lDown = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
     if (lDown && !wasPressed[L]) {
@@ -506,6 +532,14 @@ void processInput(GLFWwindow* window)
         lightingEnabled = !lightingEnabled;
     }
     wasPressed[L] = lDown;
+
+    // move light
+    bool mDown = glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS;
+    if (mDown && !wasPressed[M]) {
+        printInput(M);
+        lightMovementEnabled = !lightMovementEnabled;
+    }
+    wasPressed[M] = mDown;
 
     // toggle cel shading
     bool cDown = glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS;
@@ -522,6 +556,14 @@ void processInput(GLFWwindow* window)
         rimLightingEnabled = !rimLightingEnabled;
     }
     wasPressed[R] = rDown;
+
+    // toggle outline
+    bool oDown = glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS;
+    if (oDown && !wasPressed[O]) {
+        printInput(O);
+        outlineEnabled = !outlineEnabled;
+    }
+    wasPressed[O] = oDown;
 }
 
 void printInput(Input input)
@@ -548,14 +590,16 @@ void printInput(Input input)
         currentInput = "ARROW_DOWN";
     if (input == F11) 
         currentInput = "F11";
-    if (input == M) 
-        currentInput = "M";
     if (input == L) 
         currentInput = "L";
+    if (input == M) 
+        currentInput = "M";
     if (input == C)
         currentInput = "C";
     if (input == R)
         currentInput = "R";
+    if (input == O)
+        currentInput = "O";
 
     std::cout << "\rinput: " << currentInput << "          " << std::flush;
 }

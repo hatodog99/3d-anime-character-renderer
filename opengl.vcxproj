@@ -193,6 +193,8 @@
     <None Include="resources\shaders\3.3.light.fs" />
     <None Include="resources\shaders\3.3.no_light.fs" />
     <None Include="resources\shaders\3.3.light.vs" />
+    <None Include="resources\shaders\3.3.outline.fs" />
+    <None Include="resources\shaders\3.3.outline.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

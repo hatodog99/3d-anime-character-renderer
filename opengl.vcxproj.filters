@@ -96,5 +96,11 @@
     <None Include="resources\shaders\3.3.depth_test.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="resources\shaders\3.3.outline.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\3.3.outline.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
