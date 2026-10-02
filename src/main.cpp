@@ -5,90 +5,53 @@
 #include "../includes/glm/gtc/matrix_transform.hpp"
 #include "../includes/glm/gtc/type_ptr.hpp"
 
-#include "../headers/shader_s.h"
-#include "../headers/model.h"
 #include "../headers/camera.h"
+#include "../headers/input.h"
+#include "../headers/model.h"
+#include "../headers/shader_s.h"
 
+#include <cmath>
 #include <iostream>
-
-enum Input {
-    ESC,
-    W,
-    S,
-    A,
-    D,
-    SPACE,
-    LEFT_SHIFT,
-    UP_ARROW,
-    DOWN_ARROW,
-    F11,
-    L,
-    M,
-    C,
-    R,
-    O
-};
-
-bool wasPressed[15] = { false };
+#include <string>
 
 void updatePerformanceCounter(GLFWwindow* window);
 void frame_buffer_size_callback(GLFWwindow* window, int width, int height);
-void toggleFullscreen(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow* window);
-void printInput(Input input);
 unsigned int loadTexture(
-    const char* path, 
+    const char* path,
     GLenum wrapMode = GL_REPEAT,
     GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR,
-    GLenum magFilter = GL_LINEAR_MIPMAP_LINEAR  
+    GLenum magFilter = GL_LINEAR
 );
 
 // screen size
 unsigned int SCR_WIDTH = 853;
 unsigned int SCR_HEIGHT = 480;
 
-bool isFullscreen = false;
-int windowedX, windowedY, windowedWidth, windowedHeight;
-
 // camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float lastX = (float)SCR_WIDTH / 2.0;
-float lastY = (float)SCR_HEIGHT / 2.0;
+float lastX = (float)SCR_WIDTH / 2.0f;
+float lastY = (float)SCR_HEIGHT / 2.0f;
 bool firstMouseInput = true;
 
 // frame times
 float deltaTime = 0.0f;
 float lastFrameTime = 0.0f;
 
-// input times
-float inputCooldownTime = 0.05f;
-float cooldownTimer = 0.0f;
-float mixCooldownTimer = 0.0f;
-
-float mixValue = 0.3f;
-
-// light
-bool lightingEnabled = true;
-bool lightMovementEnabled = false;
-
-// anime stuff
-bool cellShadingEnabled = true;
-bool rimLightingEnabled = true;
-bool outlineEnabled = true;
+Input input(camera, deltaTime);
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
 glm::vec3 lightDir(-0.7f, -0.2f, -1.8f);
-glm::vec3 whiteLightColor(glm::vec3(1.0f));                     // #FFFFFF
-glm::vec3 sunLightColor(glm::vec3(1.0f, 0.988f, 0.924f));       // #FFFCEB
-glm::vec3 ambientLightColor(glm::vec3(0.706f, 0.843f, 1.0f));   // #B4D7FF
+glm::vec3 whiteLightColor(1.0f);                                // #FFFFFF
+glm::vec3 sunLightColor(1.0f, 0.988f, 0.924f);                  // #FFFCEB
+glm::vec3 ambientLightColor(0.706f, 0.843f, 1.0f);              // #B4D7FF
 
-glm::vec3 blackOutlineColor(glm::vec3(0.0f));                       // #000000
-glm::vec3 whiteOutlineColor(glm::vec3(1.0f));                       // #FFFFFF
-glm::vec3 darkBrownOutlineColor(glm::vec3(0.176f, 0.118f, 0.098f)); // #2D1E19
-glm::vec3 darkRedOutlineColor(glm::vec3(0.235f, 0.255f, 0.314f));   // #3C4150
-glm::vec3 darkBlueOutlineColor(glm::vec3(0.314f, 0.137f, 0.137f));  // #502323
+glm::vec3 blackOutlineColor(0.0f);                              // #000000
+glm::vec3 whiteOutlineColor(1.0f);                              // #FFFFFF
+glm::vec3 darkBrownOutlineColor(0.176f, 0.118f, 0.098f);        // #2D1E19
+glm::vec3 darkRedOutlineColor(0.235f, 0.255f, 0.314f);          // #3C4150
+glm::vec3 darkBlueOutlineColor(0.314f, 0.137f, 0.137f);         // #502323
 
 int main()
 {
@@ -99,9 +62,6 @@ int main()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "main", NULL, NULL);
     if (window == NULL)
@@ -124,22 +84,15 @@ int main()
     }
 
     glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LESS);
-    //glDepthFunc(GL_ALWAYS);
     glEnable(GL_STENCIL_TEST);
-    glfwSwapInterval(0);    // disable vsync
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);  // write the reference value when stencil and depth pass
+    glfwSwapInterval(0);                        // disable vsync
 
-    //Shader noLightShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.no_light.fs");
     Shader lightingShader("resources/shaders/3.3.light.vs", "resources/shaders/3.3.light.fs");
     Shader lightCubeShader("resources/shaders/3.3.light_cube.vs", "resources/shaders/3.3.light_cube.fs");
-
     Shader outlineShader("resources/shaders/3.3.outline.vs", "resources/shaders/3.3.outline.fs");
 
-    //Model twoB("resources/objects/2b-in-kimono/28.glb");
     Model nijika("resources/objects/ijichi-nijika/1.fbx");
-    //Model bocchi("resources/objects/goto-hitori/1.fbx");
-    //Model kita("resources/objects/kita-ikuyo/1.fbx");
-    //Model ryo("resources/objects/yamada-ryo/1.fbx");
 
     float vertices[] = {
         // positions          // normals           // texture coords
@@ -186,25 +139,6 @@ int main()
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
     };
 
-    glm::vec3 modelPositions[] = {
-        glm::vec3(0.0f,  -0.8f,  0.0f),
-        glm::vec3(2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f,  2.0f, -2.5f),
-        glm::vec3(1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
-
-    glm::vec3 pointLightPositions[] = {
-        glm::vec3(0.7f,  1.4f,  2.0f),
-        glm::vec3(2.3f, -3.3f, -4.0f),
-        glm::vec3(-4.0f,  2.0f, -12.0f),
-        glm::vec3(0.0f,  0.0f, -3.0f)
-    };
     unsigned int VBO, modelVAO;
     glGenVertexArrays(1, &modelVAO);
     glGenBuffers(1, &VBO);
@@ -223,11 +157,12 @@ int main()
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    const float modelScale = 0.007f;
+    const float outlineWidth = 0.004f;  // world units if your outline.vs extrudes in world space
 
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -236,51 +171,44 @@ int main()
         deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
 
-        processInput(window);
+        input.processInput(window);
 
         // background
-        //glClearColor(0.05f, 0.05f, 0.05f, 1.0f);    // dark
-        glClearColor(0.95f, 0.95f, 0.95f, 1.0f);    // light
+        if (input.toggleBackground)
+            glClearColor(0.05f, 0.05f, 0.05f, 1.0f);    // dark
+        else
+            glClearColor(0.95f, 0.95f, 0.95f, 1.0f);    // light
+
+        glStencilMask(0xFF);    // the stencil mask must allow writes or the clear is ignored
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // view/projection transformations
+        float aspect = (float)SCR_WIDTH / (float)SCR_HEIGHT;
+        float nearPlane = 0.1f;     // not named near/far: those are macros on Windows
+        float farPlane = 100.0f;
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), aspect, nearPlane, farPlane);
+        glm::mat4 view = camera.GetViewMatrix();
 
-        // render light cubes
-        //lightCubeShader.use();
-        //lightCubeShader.setVec3("lightColor", sunLightColor);
-        //lightCubeShader.setMat4("projection", projection);
-        //lightCubeShader.setMat4("view", view);
+        // pass 1: render the model and write 1s into the stencil buffer
+        glStencilFunc(GL_ALWAYS, 1, 0xFF);
+        glStencilMask(0xFF);
 
-        //glBindVertexArray(lightCubeVAO);
-        //model = glm::mat4(1.0f);
-        //model = glm::translate(model, lightPos);
-        //model = glm::scale(model, glm::vec3(0.2f));
-        //lightCubeShader.setMat4("model", model);
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // see polygons
-        // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-        // render models
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-        glStencilFunc(GL_ALWAYS, 1, 0xFF); 
-        glStencilMask(0xFF);    // enable stencil buffer writing
         lightingShader.use();
         lightingShader.setVec3("viewPos", camera.Position);
 
-        lightingShader.setBool("gLightingEnabled", lightingEnabled);
-        lightingShader.setBool("gCellShadingEnabled", cellShadingEnabled);
-        lightingShader.setBool("gRimLightingEnabled", rimLightingEnabled);
+        lightingShader.setBool("gLightingEnabled", input.lightingEnabled);
+        lightingShader.setBool("gCellShadingEnabled", input.cellShadingEnabled);
+        lightingShader.setBool("gRimLightingEnabled", input.rimLightingEnabled);
 
         lightingShader.setVec3("material.specular", glm::vec3(0.2f));
         lightingShader.setFloat("material.shininess", 8.0f);
 
         // directional light
-        if (lightMovementEnabled)
+        if (input.lightMovementEnabled)
         {
             float speed = 0.6f;
             float amplitude = 0.8f;
-            lightDir.x = sin(glfwGetTime() * speed) * amplitude;
+            lightDir.x = std::sin(static_cast<float>(glfwGetTime()) * speed) * amplitude;
         }
 
         lightingShader.setVec3("dirLight.direction", lightDir);
@@ -288,78 +216,42 @@ int main()
         lightingShader.setVec3("dirLight.diffuse", glm::vec3(0.3f));
         lightingShader.setVec3("dirLight.specular", glm::vec3(0.5f));
         lightingShader.setVec3("dirLight.color", whiteLightColor);
-        // point light 1
-        //lightingShader.setVec3("pointLights[0].position", lightPos);
-        //lightingShader.setVec3("pointLights[0].ambient", glm::vec3(0.4f));
-        //lightingShader.setVec3("pointLights[0].diffuse", glm::vec3(0.8f));
-        //lightingShader.setVec3("pointLights[0].specular", glm::vec3(1.0f));
-        //lightingShader.setFloat("pointLights[0].constant", 1.0f);
-        //lightingShader.setFloat("pointLights[0].linear", 0.09f);
-        //lightingShader.setFloat("pointLights[0].quadratic", 0.032f);
-        //lightingShader.setVec3("pointLights[0].color", sunLightColor);
-        // point light 2
-        //lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-        //lightingShader.setVec3("pointLights[1].ambient", glm::vec3(0.4f));
-        //lightingShader.setVec3("pointLights[1].diffuse", glm::vec3(0.8f));
-        //lightingShader.setVec3("pointLights[1].specular", glm::vec3(1.0f));
-        //lightingShader.setFloat("pointLights[1].constant", 1.0f);
-        //lightingShader.setFloat("pointLights[1].linear", 0.09f);
-        //lightingShader.setFloat("pointLights[1].quadratic", 0.032f);
-        //lightingShader.setVec3("pointLights[0].color", lightColor);
-        //// point light 3
-        //lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-        //lightingShader.setVec3("pointLights[2].ambient", glm::vec3(0.4f));
-        //lightingShader.setVec3("pointLights[2].diffuse", glm::vec3(0.8f));
-        //lightingShader.setVec3("pointLights[2].specular", glm::vec3(1.0f));
-        //lightingShader.setFloat("pointLights[2].constant", 1.0f);
-        //lightingShader.setFloat("pointLights[2].linear", 0.09f);
-        //lightingShader.setFloat("pointLights[2].quadratic", 0.032f);
-        //lightingShader.setVec3("pointLights[0].color", lightColor);
-        //// point light 4
-        //lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-        //lightingShader.setVec3("pointLights[3].ambient", glm::vec3(0.4f));
-        //lightingShader.setVec3("pointLights[3].diffuse", glm::vec3(0.8f));
-        //lightingShader.setVec3("pointLights[3].specular", glm::vec3(1.0f));
-        //lightingShader.setFloat("pointLights[3].constant", 1.0f);
-        //lightingShader.setFloat("pointLights[3].linear", 0.09f);
-        //lightingShader.setFloat("pointLights[3].quadratic", 0.032f);
-        //lightingShader.setVec3("pointLights[0].color", lightColor);
 
-        // view/projection transformations
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
 
-        // render model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
-        float modelScale = 0.007f;
         model = glm::scale(model, glm::vec3(modelScale));
         lightingShader.setMat4("model", model);
         nijika.Draw(lightingShader);
 
-        // render outline
-        if (outlineEnabled)
+        // pass 2: render the extruded model only where the stencil is not 1
+        if (input.outlineEnabled)
         {
             glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-            glStencilMask(0x00);    // disable stencil buffer writing
-            glDisable(GL_DEPTH_TEST);
+            glStencilMask(0x00);    // don't modify the stencil buffer
+            // depth test stays enabled so the outline hides behind other objects
+
             outlineShader.use();
-            outlineShader.setVec3("outlineColor", darkBrownOutlineColor);
-            outlineShader.setFloat("outlineWidth", 0.004f);
+
+            glm::vec3 currentOutlineColor = input.toggleBackground ? whiteOutlineColor : darkBrownOutlineColor;
+
+            outlineShader.setVec3("outlineColor", currentOutlineColor);
+            outlineShader.setFloat("outlineWidth", outlineWidth);
             outlineShader.setMat4("projection", projection);
             outlineShader.setMat4("view", view);
             outlineShader.setMat4("model", model);
             nijika.Draw(outlineShader);
+
+            // reset state
             glStencilMask(0xFF);
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
-            glEnable(GL_DEPTH_TEST);
         }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-        
+
         updatePerformanceCounter(window);
     }
 
@@ -371,19 +263,20 @@ int main()
     return 0;
 }
 
-void updatePerformanceCounter(GLFWwindow* window) {
+void updatePerformanceCounter(GLFWwindow* window)
+{
     static double lastTime = glfwGetTime();
     static int frameCount = 0;
 
     double currentTime = glfwGetTime();
     frameCount++;
 
-    if (currentTime - lastTime >= 1.0) {
+    if (currentTime - lastTime >= 1.0)
+    {
         float fps = float(frameCount) / (currentTime - lastTime);
         float msPerFrame = (currentTime - lastTime) * 1000.0f / float(frameCount);
 
         std::string title = "main | fps: " + std::to_string(int(fps)) + " | time: " + std::to_string(msPerFrame) + " /ms";
-
         glfwSetWindowTitle(window, title.c_str());
 
         frameCount = 0;
@@ -396,23 +289,6 @@ void frame_buffer_size_callback(GLFWwindow* window, int width, int height)
     SCR_WIDTH = width;
     SCR_HEIGHT = height;
     glViewport(0, 0, width, height);
-}
-
-void toggleFullscreen(GLFWwindow* window)
-{
-    if (!isFullscreen)
-    {
-        glfwGetWindowPos(window, &windowedX, &windowedY);
-        glfwGetWindowSize(window, &windowedWidth, &windowedHeight);
-
-        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-    }
-    else
-        glfwSetWindowMonitor(window, NULL, windowedX, windowedY, windowedWidth, windowedHeight, 0);
-    isFullscreen = !isFullscreen;
 }
 
 void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
@@ -432,176 +308,8 @@ void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
 
     lastX = xpos;
     lastY = ypos;
-    
+
     camera.ProcessMouseMovement(xoffset, yoffset);
-}
-
-void processInput(GLFWwindow* window)
-{
-    bool escDown = glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS;
-    if (escDown)
-    {
-        if (!wasPressed[ESC]) printInput(ESC);
-        glfwSetWindowShouldClose(window, true);
-    }
-    wasPressed[ESC] = escDown;
-
-    // movement
-    bool wDown = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-    if (wDown)
-    {
-        if (!wasPressed[W]) printInput(W);
-        camera.ProcessKeyboard(FORWARD, deltaTime);
-    }
-    wasPressed[W] = wDown;
-
-    bool sDown = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
-    if (sDown)
-    {
-        if (!wasPressed[S]) printInput(S);
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
-    }
-    wasPressed[S] = sDown;
-
-    bool aDown = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
-    if (aDown)
-    {
-        if (!wasPressed[A]) printInput(A);
-        camera.ProcessKeyboard(LEFT, deltaTime);
-    }
-    wasPressed[A] = aDown;
-
-    bool dDown = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
-    if (dDown)
-    {
-        if (!wasPressed[D]) printInput(D);
-        camera.ProcessKeyboard(RIGHT, deltaTime);
-    }
-    wasPressed[D] = dDown;
-
-    bool spaceDown = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
-    if (spaceDown)
-    {
-        if (!wasPressed[SPACE]) printInput(SPACE);
-        camera.ProcessKeyboard(UP, deltaTime);
-    }
-    wasPressed[SPACE] = spaceDown;
-
-    bool shiftDown = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
-    if (shiftDown)
-    {
-        if (!wasPressed[LEFT_SHIFT]) printInput(LEFT_SHIFT);
-        camera.ProcessKeyboard(DOWN, deltaTime);
-    }
-    wasPressed[LEFT_SHIFT] = shiftDown;
-
-    // texture mix
-    mixCooldownTimer += deltaTime;
-    bool upDown = glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS;
-    if (upDown && mixCooldownTimer >= inputCooldownTime)
-    {
-        if (!wasPressed[UP_ARROW]) printInput(UP_ARROW);
-        mixValue += 0.05f;
-        if (mixValue >= 1.0f) mixValue = 1.0f;
-        mixCooldownTimer = 0.0f;
-    }
-    wasPressed[UP_ARROW] = upDown;
-
-    bool downDown = glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS;
-    if (downDown && mixCooldownTimer >= inputCooldownTime)
-    {
-        if (!wasPressed[DOWN_ARROW]) printInput(DOWN_ARROW);
-        mixValue -= 0.05f;
-        if (mixValue <= 0.0f) mixValue = 0.0f;
-        mixCooldownTimer = 0.0f;
-    }
-    wasPressed[DOWN_ARROW] = downDown;
-
-    // fullscreen
-    bool f11Down = glfwGetKey(window, GLFW_KEY_F11) == GLFW_PRESS;
-    if (f11Down && !wasPressed[F11]) {
-        printInput(F11);
-        toggleFullscreen(window);
-    }
-    wasPressed[F11] = f11Down;
-
-    // toggle lighting
-    bool lDown = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
-    if (lDown && !wasPressed[L]) {
-        printInput(L);
-        lightingEnabled = !lightingEnabled;
-    }
-    wasPressed[L] = lDown;
-
-    // move light
-    bool mDown = glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS;
-    if (mDown && !wasPressed[M]) {
-        printInput(M);
-        lightMovementEnabled = !lightMovementEnabled;
-    }
-    wasPressed[M] = mDown;
-
-    // toggle cel shading
-    bool cDown = glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS;
-    if (cDown && !wasPressed[C]) {
-        printInput(C);
-        cellShadingEnabled = !cellShadingEnabled;
-    }
-    wasPressed[C] = cDown;
-
-    // toggle rim lighting
-    bool rDown = glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS;
-    if (rDown && !wasPressed[R]) {
-        printInput(R);
-        rimLightingEnabled = !rimLightingEnabled;
-    }
-    wasPressed[R] = rDown;
-
-    // toggle outline
-    bool oDown = glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS;
-    if (oDown && !wasPressed[O]) {
-        printInput(O);
-        outlineEnabled = !outlineEnabled;
-    }
-    wasPressed[O] = oDown;
-}
-
-void printInput(Input input)
-{
-    std::string currentInput = "";
-
-    if (input == ESC) 
-        currentInput = "ESC";
-    if (input == W) 
-        currentInput = "W";
-    if (input == S) 
-        currentInput = "S";
-    if (input == A) 
-        currentInput = "A";
-    if (input == D) 
-        currentInput = "D";
-    if (input == SPACE) 
-        currentInput = "SPACE";
-    if (input == LEFT_SHIFT) 
-        currentInput = "LEFT_SHIFT";
-    if (input == UP_ARROW) 
-        currentInput = "ARROW_UP";
-    if (input == DOWN_ARROW) 
-        currentInput = "ARROW_DOWN";
-    if (input == F11) 
-        currentInput = "F11";
-    if (input == L) 
-        currentInput = "L";
-    if (input == M) 
-        currentInput = "M";
-    if (input == C)
-        currentInput = "C";
-    if (input == R)
-        currentInput = "R";
-    if (input == O)
-        currentInput = "O";
-
-    std::cout << "\rinput: " << currentInput << "          " << std::flush;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

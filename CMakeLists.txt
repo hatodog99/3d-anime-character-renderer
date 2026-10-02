@@ -8,9 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(assimp REQUIRED)
-
 add_executable(my_opengl_project
     src/glad.c
+    src/input.cpp
     src/main.cpp
     src/mesh.cpp
     src/model.cpp
