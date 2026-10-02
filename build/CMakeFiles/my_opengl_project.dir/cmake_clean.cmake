@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/my_opengl_project.dir/src/glad.c.o"
   "CMakeFiles/my_opengl_project.dir/src/glad.c.o.d"
+  "CMakeFiles/my_opengl_project.dir/src/input.cpp.o"
+  "CMakeFiles/my_opengl_project.dir/src/input.cpp.o.d"
   "CMakeFiles/my_opengl_project.dir/src/main.cpp.o"
   "CMakeFiles/my_opengl_project.dir/src/main.cpp.o.d"
   "CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o"

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/jason/Documents/hatdog/project/src/glad.c" "CMakeFiles/my_opengl_project.dir/src/glad.c.o" "gcc" "CMakeFiles/my_opengl_project.dir/src/glad.c.o.d"
+  "/home/jason/Documents/hatdog/project/src/input.cpp" "CMakeFiles/my_opengl_project.dir/src/input.cpp.o" "gcc" "CMakeFiles/my_opengl_project.dir/src/input.cpp.o.d"
   "/home/jason/Documents/hatdog/project/src/main.cpp" "CMakeFiles/my_opengl_project.dir/src/main.cpp.o" "gcc" "CMakeFiles/my_opengl_project.dir/src/main.cpp.o.d"
   "/home/jason/Documents/hatdog/project/src/mesh.cpp" "CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o" "gcc" "CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o.d"
   "/home/jason/Documents/hatdog/project/src/model.cpp" "CMakeFiles/my_opengl_project.dir/src/model.cpp.o" "gcc" "CMakeFiles/my_opengl_project.dir/src/model.cpp.o.d"

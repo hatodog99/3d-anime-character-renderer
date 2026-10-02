@@ -334,22 +334,46 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: \
  /home/jason/Documents/hatdog/project/src/../includes/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
  /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
  /home/jason/Documents/hatdog/project/src/../includes/glm/gtc/type_ptr.inl \
- /home/jason/Documents/hatdog/project/src/../headers/shader_s.h \
+ /home/jason/Documents/hatdog/project/src/../headers/camera.h \
  /home/jason/Documents/hatdog/project/src/../headers/../includes/glad/glad.h \
- /usr/include/c++/13/string /usr/include/c++/13/bits/stringfwd.h \
- /usr/include/c++/13/bits/char_traits.h \
- /usr/include/c++/13/bits/postypes.h /usr/include/c++/13/cwchar \
- /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /home/jason/Documents/hatdog/project/src/../headers/input.h \
+ /home/jason/Documents/hatdog/project/src/../headers/../includes/GLFW/glfw3.h \
+ /home/jason/Documents/hatdog/project/src/../headers/../headers/camera.h \
+ /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
+ /usr/include/c++/13/ios /usr/include/c++/13/iosfwd \
+ /usr/include/c++/13/bits/stringfwd.h /usr/include/c++/13/bits/postypes.h \
+ /usr/include/c++/13/cwchar /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/c++/13/exception /usr/include/c++/13/bits/exception_ptr.h \
+ /usr/include/c++/13/bits/cxxabi_init_exception.h \
+ /usr/include/c++/13/bits/nested_exception.h \
+ /usr/include/c++/13/bits/char_traits.h \
  /usr/include/c++/13/bits/localefwd.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
  /usr/include/c++/13/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/13/iosfwd \
- /usr/include/c++/13/cctype /usr/include/ctype.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/13/cctype \
+ /usr/include/ctype.h /usr/include/c++/13/bits/ios_base.h \
+ /usr/include/c++/13/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/13/bits/locale_classes.h /usr/include/c++/13/string \
  /usr/include/c++/13/bits/ostream_insert.h \
  /usr/include/c++/13/bits/cxxabi_forced.h \
  /usr/include/c++/13/bits/basic_string.h /usr/include/c++/13/string_view \
@@ -367,6 +391,21 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/basic_string.tcc \
+ /usr/include/c++/13/bits/locale_classes.tcc \
+ /usr/include/c++/13/system_error \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
+ /usr/include/c++/13/stdexcept /usr/include/c++/13/streambuf \
+ /usr/include/c++/13/bits/streambuf.tcc \
+ /usr/include/c++/13/bits/basic_ios.h \
+ /usr/include/c++/13/bits/locale_facets.h /usr/include/c++/13/cwctype \
+ /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
+ /usr/include/c++/13/bits/streambuf_iterator.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
+ /usr/include/c++/13/bits/locale_facets.tcc \
+ /usr/include/c++/13/bits/basic_ios.tcc \
+ /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
+ /usr/include/c++/13/bits/istream.tcc \
  /home/jason/Documents/hatdog/project/src/../headers/model.h \
  /home/jason/Documents/hatdog/project/includes/assimp/Importer.hpp \
  /home/jason/Documents/hatdog/project/includes/../includes/assimp/types.h \
@@ -388,9 +427,6 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: \
  /home/jason/Documents/hatdog/project/includes/assimp/matrix4x4.inl \
  /home/jason/Documents/hatdog/project/includes/assimp/MathFunctions.h \
  /home/jason/Documents/hatdog/project/includes/assimp/quaternion.inl \
- /usr/include/c++/13/exception /usr/include/c++/13/bits/exception_ptr.h \
- /usr/include/c++/13/bits/cxxabi_init_exception.h \
- /usr/include/c++/13/bits/nested_exception.h \
  /home/jason/Documents/hatdog/project/includes/assimp/scene.h \
  /home/jason/Documents/hatdog/project/includes/../includes/assimp/texture.h \
  /home/jason/Documents/hatdog/project/includes/assimp/Compiler/pushpack1.h \
@@ -409,47 +445,14 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: \
  /home/jason/Documents/hatdog/project/src/../headers/../headers/stb_image.h \
  /usr/include/c++/13/stdlib.h \
  /home/jason/Documents/hatdog/project/src/../headers/../headers/shader_s.h \
- /home/jason/Documents/hatdog/project/src/../headers/../headers/mesh.h \
  /home/jason/Documents/hatdog/project/src/../headers/../headers/../includes/glad/glad.h \
+ /home/jason/Documents/hatdog/project/src/../headers/../headers/mesh.h \
  /home/jason/Documents/hatdog/project/src/../headers/../headers/../headers/shader_s.h \
- /usr/include/c++/13/fstream /usr/include/c++/13/istream \
- /usr/include/c++/13/ios /usr/include/c++/13/bits/ios_base.h \
- /usr/include/c++/13/ext/atomicity.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h \
- /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
- /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
- /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
- /usr/include/c++/13/bits/locale_classes.h \
- /usr/include/c++/13/bits/locale_classes.tcc \
- /usr/include/c++/13/system_error \
- /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
- /usr/include/c++/13/stdexcept /usr/include/c++/13/streambuf \
- /usr/include/c++/13/bits/streambuf.tcc \
- /usr/include/c++/13/bits/basic_ios.h \
- /usr/include/c++/13/bits/locale_facets.h /usr/include/c++/13/cwctype \
- /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
- /usr/include/c++/13/bits/streambuf_iterator.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
- /usr/include/c++/13/bits/locale_facets.tcc \
- /usr/include/c++/13/bits/basic_ios.tcc /usr/include/c++/13/ostream \
- /usr/include/c++/13/bits/ostream.tcc \
- /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/bits/codecvt.h \
+ /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/sstream \
- /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/iostream \
- /usr/include/c++/13/map /usr/include/c++/13/bits/stl_tree.h \
- /usr/include/c++/13/bits/stl_map.h \
+ /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/map \
+ /usr/include/c++/13/bits/stl_tree.h /usr/include/c++/13/bits/stl_map.h \
  /usr/include/c++/13/bits/stl_multimap.h \
- /home/jason/Documents/hatdog/project/src/../headers/camera.h
+ /home/jason/Documents/hatdog/project/src/../headers/shader_s.h

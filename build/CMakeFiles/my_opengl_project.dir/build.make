@@ -83,10 +83,24 @@ CMakeFiles/my_opengl_project.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/my_opengl_project.dir/src/glad.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/jason/Documents/hatdog/project/src/glad.c -o CMakeFiles/my_opengl_project.dir/src/glad.c.s
 
+CMakeFiles/my_opengl_project.dir/src/input.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
+CMakeFiles/my_opengl_project.dir/src/input.cpp.o: /home/jason/Documents/hatdog/project/src/input.cpp
+CMakeFiles/my_opengl_project.dir/src/input.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_opengl_project.dir/src/input.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/input.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/input.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/input.cpp.o -c /home/jason/Documents/hatdog/project/src/input.cpp
+
+CMakeFiles/my_opengl_project.dir/src/input.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_opengl_project.dir/src/input.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jason/Documents/hatdog/project/src/input.cpp > CMakeFiles/my_opengl_project.dir/src/input.cpp.i
+
+CMakeFiles/my_opengl_project.dir/src/input.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_opengl_project.dir/src/input.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jason/Documents/hatdog/project/src/input.cpp -o CMakeFiles/my_opengl_project.dir/src/input.cpp.s
+
 CMakeFiles/my_opengl_project.dir/src/main.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
 CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/jason/Documents/hatdog/project/src/main.cpp
 CMakeFiles/my_opengl_project.dir/src/main.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_opengl_project.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_opengl_project.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/main.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/main.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/main.cpp.o -c /home/jason/Documents/hatdog/project/src/main.cpp
 
 CMakeFiles/my_opengl_project.dir/src/main.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.s: cmake_force
 CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
 CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o: /home/jason/Documents/hatdog/project/src/mesh.cpp
 CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o -c /home/jason/Documents/hatdog/project/src/mesh.cpp
 
 CMakeFiles/my_opengl_project.dir/src/mesh.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/my_opengl_project.dir/src/mesh.cpp.s: cmake_force
 CMakeFiles/my_opengl_project.dir/src/model.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
 CMakeFiles/my_opengl_project.dir/src/model.cpp.o: /home/jason/Documents/hatdog/project/src/model.cpp
 CMakeFiles/my_opengl_project.dir/src/model.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_opengl_project.dir/src/model.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_opengl_project.dir/src/model.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/model.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/model.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/model.cpp.o -c /home/jason/Documents/hatdog/project/src/model.cpp
 
 CMakeFiles/my_opengl_project.dir/src/model.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/my_opengl_project.dir/src/model.cpp.s: cmake_force
 CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
 CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o: /home/jason/Documents/hatdog/project/src/shader_s.cpp
 CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.o -c /home/jason/Documents/hatdog/project/src/shader_s.cpp
 
 CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/my_opengl_project.dir/src/shader_s.cpp.s: cmake_force
 CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o: CMakeFiles/my_opengl_project.dir/flags.make
 CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o: /home/jason/Documents/hatdog/project/src/stb_image.cpp
 CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o: CMakeFiles/my_opengl_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o -MF CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o.d -o CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.o -c /home/jason/Documents/hatdog/project/src/stb_image.cpp
 
 CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.i: cmake_force
@@ -156,6 +170,7 @@ CMakeFiles/my_opengl_project.dir/src/stb_image.cpp.s: cmake_force
 # Object files for target my_opengl_project
 my_opengl_project_OBJECTS = \
 "CMakeFiles/my_opengl_project.dir/src/glad.c.o" \
+"CMakeFiles/my_opengl_project.dir/src/input.cpp.o" \
 "CMakeFiles/my_opengl_project.dir/src/main.cpp.o" \
 "CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o" \
 "CMakeFiles/my_opengl_project.dir/src/model.cpp.o" \
@@ -166,6 +181,7 @@ my_opengl_project_OBJECTS = \
 my_opengl_project_EXTERNAL_OBJECTS =
 
 my_opengl_project: CMakeFiles/my_opengl_project.dir/src/glad.c.o
+my_opengl_project: CMakeFiles/my_opengl_project.dir/src/input.cpp.o
 my_opengl_project: CMakeFiles/my_opengl_project.dir/src/main.cpp.o
 my_opengl_project: CMakeFiles/my_opengl_project.dir/src/mesh.cpp.o
 my_opengl_project: CMakeFiles/my_opengl_project.dir/src/model.cpp.o
@@ -177,7 +193,7 @@ my_opengl_project: /usr/lib/x86_64-linux-gnu/libassimp.so.5.3.0
 my_opengl_project: /usr/lib/x86_64-linux-gnu/libGLX.so
 my_opengl_project: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 my_opengl_project: CMakeFiles/my_opengl_project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable my_opengl_project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/jason/Documents/hatdog/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable my_opengl_project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_opengl_project.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying resources to output directory"
 	/usr/bin/cmake -E copy_directory /home/jason/Documents/hatdog/project/resources /home/jason/Documents/hatdog/project/build/resources
