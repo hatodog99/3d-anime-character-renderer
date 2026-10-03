@@ -184,7 +184,7 @@ int main()
 
         // view/projection transformations
         float aspect = (float)SCR_WIDTH / (float)SCR_HEIGHT;
-        float nearPlane = 0.1f;     // not named near/far: those are macros on Windows
+        float nearPlane = 0.1f;
         float farPlane = 100.0f;
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), aspect, nearPlane, farPlane);
         glm::mat4 view = camera.GetViewMatrix();

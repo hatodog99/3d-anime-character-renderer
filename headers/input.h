@@ -19,7 +19,7 @@ class Input {
 public:
     // toggles that main.cpp reads
     bool lightingEnabled = true;
-    bool lightMovementEnabled = true;
+    bool lightMovementEnabled = false;
     bool cellShadingEnabled = true;
     bool rimLightingEnabled = true;
     bool outlineEnabled = true;
