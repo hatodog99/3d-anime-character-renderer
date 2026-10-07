@@ -206,7 +206,7 @@ int main()
         // directional light
         if (input.lightMovementEnabled)
         {
-            float speed = 0.6f;
+            float speed = 0.7f;
             float amplitude = 0.8f;
             lightDir.x = std::sin(static_cast<float>(glfwGetTime()) * speed) * amplitude;
         }
