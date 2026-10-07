@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="3d-anime-character-renderer(1).vcxproj" />
+  <Project Path="3d-anime-character-renderer.vcxproj" />
 </Solution>
