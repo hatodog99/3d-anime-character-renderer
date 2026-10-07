@@ -24,7 +24,7 @@
     <ProjectGuid>{80b2c70c-7f10-4905-b2a2-71686129a875}</ProjectGuid>
     <RootNamespace>opengl</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>AnimeRenderer</ProjectName>
+    <ProjectName>3d-anime-character-renderer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
