@@ -43,15 +43,15 @@ Input input(camera, deltaTime);
 
 glm::vec3 lightPos(1.2f, 1.4f, 0.8f);
 glm::vec3 lightDir(-0.7f, -0.2f, -1.8f);
-glm::vec3 whiteLightColor(1.0f);                                // #FFFFFF
-glm::vec3 sunLightColor(1.0f, 0.988f, 0.924f);                  // #FFFCEB
-glm::vec3 ambientLightColor(0.706f, 0.843f, 1.0f);              // #B4D7FF
+glm::vec3 whiteLightColor(1.0f);                         // #FFFFFF
+glm::vec3 sunLightColor(1.0f, 0.988f, 0.924f);           // #FFFCEB
+glm::vec3 ambientLightColor(0.706f, 0.843f, 1.0f);       // #B4D7FF
 
-glm::vec3 blackOutlineColor(0.0f);                              // #000000
-glm::vec3 whiteOutlineColor(1.0f);                              // #FFFFFF
-glm::vec3 darkBrownOutlineColor(0.176f, 0.118f, 0.098f);        // #2D1E19
-glm::vec3 darkRedOutlineColor(0.235f, 0.255f, 0.314f);          // #3C4150
-glm::vec3 darkBlueOutlineColor(0.314f, 0.137f, 0.137f);         // #502323
+glm::vec3 blackOutlineColor(0.0f);                       // #000000
+glm::vec3 whiteOutlineColor(1.0f);                       // #FFFFFF
+glm::vec3 darkBrownOutlineColor(0.176f, 0.118f, 0.098f); // #2D1E19
+glm::vec3 darkRedOutlineColor(0.235f, 0.255f, 0.314f);   // #3C4150
+glm::vec3 darkBlueOutlineColor(0.314f, 0.137f, 0.137f);  // #502323
 
 int main()
 {
@@ -162,7 +162,7 @@ int main()
     glEnableVertexAttribArray(0);
 
     const float modelScale = 0.007f;
-    const float outlineWidth = 0.004f;  // world units if your outline.vs extrudes in world space
+    const float outlineWidth = 0.002f;  // world units if your outline.vs extrudes in world space
 
     // render loop
     while (!glfwWindowShouldClose(window))
