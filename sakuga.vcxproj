@@ -27,16 +27,22 @@
     <ClInclude Include="includes\GLFW\glfw3.h" />
     <ClInclude Include="includes\GLFW\glfw3native.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="includes\sakuga\shaders.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo/demo.cpp" />
     <ClCompile Include="includes\glad\glad.c" />
     <ClCompile Include="includes\sakuga\input.cpp" />
+    <ClCompile Include="includes\sakuga\shaders.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\dirt.png" />
     <Image Include="resources\textures\hearts1.jpg" />
     <Image Include="resources\textures\nijika.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shaders\shader.fs.glsl" />
+    <None Include="resources\shaders\shader.vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

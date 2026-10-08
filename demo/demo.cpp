@@ -1,6 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include <sakuga/input.h>
+#include <sakuga/shaders.h>
 
 #include <iostream>
 
@@ -36,6 +38,8 @@ int main()
 		std::cout << "failed to initialize glad" << std::endl;
 		return -1;
 	}
+
+	Shader shader("resources/shaders/shader.vs.glsl", "resources/shaders/shader.fs.glsl");
 
 	while (!glfwWindowShouldClose(window))
 	{
