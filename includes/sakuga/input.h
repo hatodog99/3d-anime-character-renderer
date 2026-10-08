@@ -5,7 +5,6 @@
 
 class Input {
 public:
-
 	Input() = default;
 	void processInput(GLFWwindow* window);
 };

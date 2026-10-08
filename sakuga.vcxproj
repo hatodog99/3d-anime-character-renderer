@@ -30,13 +30,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo/demo.cpp" />
-    <ClCompile Include="demo/glad.c" />
+    <ClCompile Include="includes\glad\glad.c" />
     <ClCompile Include="includes\sakuga\input.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="build\textures\dirt.png" />
-    <Image Include="build\textures\hearts1.jpg" />
-    <Image Include="build\textures\nijika.jpg" />
+    <Image Include="resources\textures\dirt.png" />
+    <Image Include="resources\textures\hearts1.jpg" />
+    <Image Include="resources\textures\nijika.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

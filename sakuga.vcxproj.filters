@@ -4,28 +4,28 @@
     <ClCompile Include="demo/demo.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="demo/glad.c">
-      <Filter>demo</Filter>
-    </ClCompile>
     <ClCompile Include="includes\sakuga\input.cpp">
       <Filter>includes\sakuga</Filter>
     </ClCompile>
+    <ClCompile Include="includes\glad\glad.c">
+      <Filter>includes\glad</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\glad\glad.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\GLFW\glfw3.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\GLFW\glfw3native.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\KHR\khrplatform.h">
-      <Filter>includes</Filter>
-    </ClInclude>
     <ClInclude Include="includes\sakuga\input.h">
       <Filter>includes\sakuga</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\glad\glad.h">
+      <Filter>includes\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3.h">
+      <Filter>includes\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3native.h">
+      <Filter>includes\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\KHR\khrplatform.h">
+      <Filter>includes\khr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,14 +41,23 @@
     <Filter Include="includes\sakuga">
       <UniqueIdentifier>{9196b1e7-77ed-4b64-aa3f-6c43f2ca0ac4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="build">
+    <Filter Include="resources">
       <UniqueIdentifier>{21a97f6a-9812-4e13-90e6-ead2033cb695}</UniqueIdentifier>
     </Filter>
-    <Filter Include="build\textures">
+    <Filter Include="resources\textures">
       <UniqueIdentifier>{37392b8e-7768-4b71-a2e0-bf72df2fffc6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="build\shaders">
+    <Filter Include="resources\shaders">
       <UniqueIdentifier>{34e8ba34-4143-43ed-ba66-1d9c7dba0c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes\glad">
+      <UniqueIdentifier>{abce93b5-7998-4e2f-bc58-1557b9f47d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes\glfw">
+      <UniqueIdentifier>{cf1fc631-4b80-431d-83ab-8b723ef41429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes\khr">
+      <UniqueIdentifier>{52b2224e-2b46-431c-981b-d17c743c425e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +66,14 @@
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="build\textures\dirt.png">
-      <Filter>build\textures</Filter>
+    <Image Include="resources\textures\nijika.jpg">
+      <Filter>resources\textures</Filter>
     </Image>
-    <Image Include="build\textures\hearts1.jpg">
-      <Filter>build\textures</Filter>
+    <Image Include="resources\textures\dirt.png">
+      <Filter>resources\textures</Filter>
     </Image>
-    <Image Include="build\textures\nijika.jpg">
-      <Filter>build\textures</Filter>
+    <Image Include="resources\textures\hearts1.jpg">
+      <Filter>resources\textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
