@@ -1,4 +1,4 @@
-#include <3d-anime-character-rendering-api/input.h>
+#include <sakuga/input.h>
 
 void Input::processInput(GLFWwindow* window)
 {

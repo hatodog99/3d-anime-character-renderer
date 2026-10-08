@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <3d-anime-character-rendering-api/input.h>
+#include <sakuga/input.h>
 
 #include <iostream>
 
@@ -11,7 +11,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 Input input;
 
-int main()
+int main()	
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

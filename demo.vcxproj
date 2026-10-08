@@ -22,16 +22,16 @@
     <Library Include="libraries\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\3d-anime-character-rendering-api\input.h" />
+    <ClInclude Include="includes\sakuga\input.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\GLFW\glfw3.h" />
     <ClInclude Include="includes\GLFW\glfw3native.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="demo\demo.cpp" />
-    <ClCompile Include="demo\glad.c" />
-    <ClCompile Include="includes\3d-anime-character-rendering-api\input.cpp" />
+    <ClCompile Include="demo/demo.cpp" />
+    <ClCompile Include="demo/glad.c" />
+    <ClCompile Include="includes\sakuga\input.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
@@ -86,12 +86,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\hatdo\source\repos\3d-anime-character-renderer(1)\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\hatdo\source\repos\3d-anime-character-renderer(1)\libraries;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\hatdo\source\repos\sakuga\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\hatdo\source\repos\sakuga\libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\hatdo\source\repos\3d-anime-character-renderer(1)\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\hatdo\source\repos\3d-anime-character-renderer(1)\libraries;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\hatdo\source\repos\sakuga\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\hatdo\source\repos\sakuga\libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

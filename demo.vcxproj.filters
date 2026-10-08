@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="demo/demo.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="demo/glad.c">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\sakuga\input.cpp">
+      <Filter>includes\sakuga</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\glad\glad.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3native.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\KHR\khrplatform.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\sakuga\input.h">
+      <Filter>includes\sakuga</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="demo">
+      <UniqueIdentifier>{9e5628ef-562f-4945-add4-8ca06995c9fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes">
+      <UniqueIdentifier>{bcb515f0-4893-4f0b-be14-c35010d52e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{946a61b0-a151-43c5-a3c2-93ba8a0116d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes\sakuga">
+      <UniqueIdentifier>{9196b1e7-77ed-4b64-aa3f-6c43f2ca0ac4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="libraries\glfw3.lib">
+      <Filter>libraries</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
