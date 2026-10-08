@@ -41,10 +41,30 @@
     <Filter Include="includes\sakuga">
       <UniqueIdentifier>{9196b1e7-77ed-4b64-aa3f-6c43f2ca0ac4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="build">
+      <UniqueIdentifier>{21a97f6a-9812-4e13-90e6-ead2033cb695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build\textures">
+      <UniqueIdentifier>{37392b8e-7768-4b71-a2e0-bf72df2fffc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build\shaders">
+      <UniqueIdentifier>{34e8ba34-4143-43ed-ba66-1d9c7dba0c91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="libraries\glfw3.lib">
       <Filter>libraries</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="build\textures\dirt.png">
+      <Filter>build\textures</Filter>
+    </Image>
+    <Image Include="build\textures\hearts1.jpg">
+      <Filter>build\textures</Filter>
+    </Image>
+    <Image Include="build\textures\nijika.jpg">
+      <Filter>build\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
