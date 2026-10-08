@@ -7,25 +7,44 @@
     <Filter Include="libraries">
       <UniqueIdentifier>{76af75ce-944c-4a35-bc45-97c379859005}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="demo">
+      <UniqueIdentifier>{ac44990d-cf00-448a-aa32-a2e9c5b504b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="headers">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="includes\3d-anime-character-rendering-api">
+      <UniqueIdentifier>{a16c46d9-9d5e-47e2-a6cb-bdc1c769604b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
-      <Filter>source</Filter>
+    <Library Include="libraries\glfw3.lib">
+      <Filter>libraries</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\glad\glad.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\GLFW\glfw3native.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\KHR\khrplatform.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\3d-anime-character-rendering-api\input.h">
+      <Filter>includes\3d-anime-character-rendering-api</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="demo\demo.cpp">
+      <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="source\glad.c">
-      <Filter>source</Filter>
+    <ClCompile Include="demo\glad.c">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\3d-anime-character-rendering-api\input.cpp">
+      <Filter>includes\3d-anime-character-rendering-api</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -19,8 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\glad.c" />
-    <ClCompile Include="source\main.cpp" />
+    <Library Include="libraries\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\3d-anime-character-rendering-api\input.h" />
+    <ClInclude Include="includes\glad\glad.h" />
+    <ClInclude Include="includes\GLFW\glfw3.h" />
+    <ClInclude Include="includes\GLFW\glfw3native.h" />
+    <ClInclude Include="includes\KHR\khrplatform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="demo\demo.cpp" />
+    <ClCompile Include="demo\glad.c" />
+    <ClCompile Include="includes\3d-anime-character-rendering-api\input.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
