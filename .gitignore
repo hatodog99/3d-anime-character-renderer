@@ -361,3 +361,56 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+## Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.VC.opendb
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+## Compiler / debugger output
+*.obj
+*.ilk
+*.pch
+*.pdb
+*.iobj
+*.ipdb
+*.tmp
+*.log
+
+## CMake / VS Code / clangd
+build/
+CMakeLists.txt.user
+.vscode/
+.cache/
+compile_commands.json
+
+## Keep 3D model files (Wavefront .obj) despite the *.obj rule above
+!resources/**/*.obj
