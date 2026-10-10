@@ -10,10 +10,7 @@
     <ClCompile Include="includes\glad\glad.c">
       <Filter>includes\glad</Filter>
     </ClCompile>
-    <ClCompile Include="includes\sakuga\shaders.cpp">
-      <Filter>includes\sakuga</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\sakuga\stb_image.cpp">
+    <ClCompile Include="includes\sakuga\shader.cpp">
       <Filter>includes\sakuga</Filter>
     </ClCompile>
     <ClCompile Include="includes\sakuga\camera.cpp">
@@ -24,6 +21,15 @@
     </ClCompile>
     <ClCompile Include="includes\glm\glm.cppm">
       <Filter>includes\glm</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\sakuga\mesh.cpp">
+      <Filter>includes\sakuga</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\sakuga\model.cpp">
+      <Filter>includes\sakuga</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\stb\stb_image.cpp">
+      <Filter>includes\stb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,10 +48,7 @@
     <ClInclude Include="includes\KHR\khrplatform.h">
       <Filter>includes\KHR</Filter>
     </ClInclude>
-    <ClInclude Include="includes\sakuga\shaders.h">
-      <Filter>includes\sakuga</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\sakuga\stb_image.h">
+    <ClInclude Include="includes\sakuga\shader.h">
       <Filter>includes\sakuga</Filter>
     </ClInclude>
     <ClInclude Include="includes\sakuga\camera.h">
@@ -1173,6 +1176,15 @@
     <ClInclude Include="includes\assimp\ZipArchiveIOSystem.h">
       <Filter>includes\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="includes\sakuga\mesh.h">
+      <Filter>includes\sakuga</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\sakuga\model.h">
+      <Filter>includes\sakuga</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\stb\stb_image.h">
+      <Filter>includes\stb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="demo">
@@ -1231,6 +1243,9 @@
     </Filter>
     <Filter Include="includes\assimp\port">
       <UniqueIdentifier>{71202d03-63ee-4d81-bea5-38d62d3f2ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes\stb">
+      <UniqueIdentifier>{09aa19b0-0984-4eac-816b-9eab3fa9e5df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
