@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include <sakuga/input.h>
-#include <sakuga/shaders.h>
+#include <sakuga/shader.h>
 
 #include <iostream>
 
