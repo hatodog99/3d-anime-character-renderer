@@ -402,8 +402,10 @@
     <ClInclude Include="includes\GLFW\glfw3.h" />
     <ClInclude Include="includes\GLFW\glfw3native.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
-    <ClInclude Include="includes\sakuga\shaders.h" />
-    <ClInclude Include="includes\sakuga\stb_image.h" />
+    <ClInclude Include="includes\sakuga\mesh.h" />
+    <ClInclude Include="includes\sakuga\model.h" />
+    <ClInclude Include="includes\sakuga\shader.h" />
+    <ClInclude Include="includes\stb\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo/demo.cpp" />
@@ -412,8 +414,10 @@
     <ClCompile Include="includes\glm\glm.cppm" />
     <ClCompile Include="includes\sakuga\camera.cpp" />
     <ClCompile Include="includes\sakuga\input.cpp" />
-    <ClCompile Include="includes\sakuga\shaders.cpp" />
-    <ClCompile Include="includes\sakuga\stb_image.cpp" />
+    <ClCompile Include="includes\sakuga\mesh.cpp" />
+    <ClCompile Include="includes\sakuga\model.cpp" />
+    <ClCompile Include="includes\sakuga\shader.cpp" />
+    <ClCompile Include="includes\stb\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\dirt.png" />
