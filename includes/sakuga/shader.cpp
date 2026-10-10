@@ -1,4 +1,4 @@
-#include <sakuga/shaders.h>
+#include <sakuga/shader.h>
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
