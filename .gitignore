@@ -414,3 +414,7 @@ compile_commands.json
 
 ## Keep 3D model files (Wavefront .obj) despite the *.obj rule above
 !resources/**/*.obj
+
+## Keep .dll so assimp can run
+!includes/assimp/bin/*.dll
+!includes/assimp/bin/
