@@ -13,6 +13,9 @@
     <ClCompile Include="includes\sakuga\shaders.cpp">
       <Filter>includes\sakuga</Filter>
     </ClCompile>
+    <ClCompile Include="includes\sakuga\stb_image.cpp">
+      <Filter>includes\sakuga</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\sakuga\input.h">
@@ -31,6 +34,9 @@
       <Filter>includes\khr</Filter>
     </ClInclude>
     <ClInclude Include="includes\sakuga\shaders.h">
+      <Filter>includes\sakuga</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\sakuga\stb_image.h">
       <Filter>includes\sakuga</Filter>
     </ClInclude>
   </ItemGroup>
@@ -78,7 +84,7 @@
     <Image Include="resources\textures\dirt.png">
       <Filter>resources\textures</Filter>
     </Image>
-    <Image Include="resources\textures\hearts1.jpg">
+    <Image Include="resources\textures\hearts.jpg">
       <Filter>resources\textures</Filter>
     </Image>
   </ItemGroup>
