@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <Library Include="libraries\assimp-vc145-mtd.lib" />
     <Library Include="libraries\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>

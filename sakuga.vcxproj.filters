@@ -1252,6 +1252,9 @@
     <Library Include="libraries\glfw3.lib">
       <Filter>libraries</Filter>
     </Library>
+    <Library Include="libraries\assimp-vc145-mtd.lib">
+      <Filter>libraries</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\nijika.jpg">
